@@ -1,0 +1,76 @@
+.vf-toggle-confirm-overlay {
+  
+  display: none;
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(0,0,0,0.1);
+  
+  z-index: 999;
+  
+  div[data-vf-toggle-confirm-wrapper] {
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    transform: translate(-50%, -50%);
+    
+    min-width: 380px;
+    min-height: 120px;
+    
+    max-width: 600px;
+    width: 100%;
+    
+    background: #ffffff;
+    padding: 1rem;
+    
+    button[data-vf-toggle-confirm-confirm] {
+      margin-right: 1rem;
+      position: relative;
+    }
+    
+    button[data-vf-toggle-confirm-escape] {
+      
+      position: absolute;
+      top: 1.6rem;
+      right: 1rem;
+      
+      width: 2rem;
+      height: 2rem;
+      
+      cursor: pointer;
+      
+      background: none;
+      border: none;
+      
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0.95rem;
+        top: 0;
+        background: #000000;
+        
+      }
+      
+      &:before {
+        width: 2px;
+        height: 2rem;
+        transform: rotate(45deg);
+        
+      }
+      
+      &:after {
+        width: 2px;
+        height: 2rem;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
