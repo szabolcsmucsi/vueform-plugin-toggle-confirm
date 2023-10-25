@@ -1,5 +1,5 @@
 import { createApp, h, ref, nextTick, onMounted, computed, onBeforeUnmount, toRefs } from 'vue'
-import ConfirmModal from './ConfirmModal2.vue'
+import ConfirmModal from './ConfirmModal.vue'
 
 export default function vueformPluginToggleConfirm() {
   return {
@@ -8,9 +8,11 @@ export default function vueformPluginToggleConfirm() {
       confirmText: {
         type: String,
       },
-      confirmOn: {
+      confirmTextOn: {
         type: String,
-        default: 'on', // 'on'|'off'|'both'
+      },
+      confirmTextOff: {
+        type: String,
       },
       confirmLabel: {
         type: String,
@@ -22,7 +24,7 @@ export default function vueformPluginToggleConfirm() {
       },
     },
     setup(props, context, component) {
-      if (!props.confirmText) {
+      if (!props.confirmText && !props.confirmTextOn && !props.confirmTextOff) {
         return {
           ...component
         }
@@ -30,6 +32,8 @@ export default function vueformPluginToggleConfirm() {
 
       const {
         confirmText,
+        confirmTextOn,
+        confirmTextOff,
         confirmLabel,
         cancelLabel,
       } = toRefs(props)
@@ -47,6 +51,12 @@ export default function vueformPluginToggleConfirm() {
       const $el = computed(() => {
         return component.input.value.$el
       })
+      
+      const modalContent = computed(() => {
+        return confirmTextOn.value ??
+          confirmTextOff.value ??
+          confirmText.value
+      })
 
       // =============== METHODS ==============
       
@@ -54,7 +64,7 @@ export default function vueformPluginToggleConfirm() {
         ModalApp = createApp({
           render() {
             return h(ConfirmModal, {
-              content: confirmText.value,
+              content: modalContent.value,
               confirmButtonLabel: confirmLabel.value,
               cancelButtonLabel: cancelLabel.value,
               onConfirm: handleConfirm,
@@ -99,8 +109,9 @@ export default function vueformPluginToggleConfirm() {
       const handleValueChange = (event) => {
         if (
           ((event.type !== 'keydown' || event.key !== ' ') && (event.type !== 'click' || event.button !== 0)) ||
-          (component.value.value && props.confirmOn !== 'on') ||
-          (!component.value.value && props.confirmOn !== 'off'))
+          (component.value.value && confirmTextOff.value) ||
+          (!component.value.value && confirmTextOn.value) ||
+          !confirmText)
         {
           return
         }
