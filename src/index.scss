@@ -1,7 +1,4 @@
 .vf-toggle-confirm-overlay {
-  
-  display: none;
-  
   position: fixed;
   top: 0;
   left: 0;
@@ -56,14 +53,12 @@
         left: 0.95rem;
         top: 0;
         background: #000000;
-        
       }
       
       &:before {
         width: 2px;
         height: 2rem;
         transform: rotate(45deg);
-        
       }
       
       &:after {

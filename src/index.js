@@ -1,4 +1,4 @@
-import { createApp, h, ref, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import { createApp, h, ref, nextTick, onMounted } from 'vue'
 import ConfirmModal from './ConfirmModal.vue'
 
 export default function vueformPluginToggleConfirm() {
@@ -31,7 +31,6 @@ export default function vueformPluginToggleConfirm() {
       }
       
       let el
-      let overlay
       
       const confirm = ref(null)
       const refs = ref({})
@@ -40,9 +39,6 @@ export default function vueformPluginToggleConfirm() {
       
       const toggleValue = () => {
         component.value.value = !component.value.value
-      }
-      const toggleVisibility = (el) => {
-        el.style.display = el.style.display === 'block' ? 'none' : 'block'
       }
       const toggleTabbing = (el) => {
         el.tabIndex = el.tabIndex === 0 ? -1 : 0
@@ -59,88 +55,75 @@ export default function vueformPluginToggleConfirm() {
         return document.querySelector('div[data-vf-toggle-confirm-wrapper]')
       }
       
-      const hasListeners = () => {
-        return document.querySelector('div[data-vf-toggle-confirm-listener]')
-      }
       const attachListeners = ({ el, toggleConfirmButton, toggleCancelButton, toggleEscapeButton } = {}) => {
         
-        if (hasListeners()) {
-          return
-        }
-        
         onEvents.forEach((eventType) => {
           
-          el.addEventListener(eventType, handleValueChange)
-          toggleConfirmButton.addEventListener(eventType, handleConfirm)
-          toggleCancelButton.addEventListener(eventType, handleCancel)
-          toggleEscapeButton.addEventListener(eventType, handleEscape)
+          if (el) {
+            el.addEventListener(eventType, handleValueChange)
+            el.setAttribute('data-vf-toggle-confirm-listener', 1)
+          }
           
-          el.setAttribute('data-vf-toggle-confirm-listener', 1)
-        })
-      }
-      const detachListeners = ({ el, toggleConfirmButton, toggleCancelButton, toggleEscapeButton } = {}) => {
-        
-        onEvents.forEach((eventType) => {
-          
-          el.removeEventListener(eventType, handleValueChange)
-          toggleConfirmButton.removeEventListener(eventType, handleConfirm)
-          toggleCancelButton.removeEventListener(eventType, handleCancel)
-          toggleEscapeButton.removeEventListener(eventType, handleEscape)
-          
-          delete el.dataset['vf-toggle-confirm-listener']
+          if (toggleConfirmButton) {
+            toggleConfirmButton.addEventListener(eventType, handleConfirm)
+          }
+          if (toggleCancelButton) {
+            toggleCancelButton.addEventListener(eventType, handleCancel)
+          }
+          if (toggleEscapeButton) {
+            toggleEscapeButton.addEventListener(eventType, handleEscape)
+          }
         })
       }
       
       const handleCancel = (event) => {
         
-        if (!isSpaceKey(event) && !isClick(event)) {
-          return
-        } else {
-        
+        if (isSpaceKey(event) || isClick(event)) {
+          
+          removeConfirm()
+          toggleTabbing(el)
+          el.focus()
         }
-        
-        toggleVisibility(overlay)
-        toggleTabbing(el)
-        el.focus()
       }
       const handleConfirm = (event) => {
         
-        if (!isSpaceKey(event) && !isClick(event)) {
-          return
-        } else {
+        if (isSpaceKey(event) || isClick(event)) {
           
           toggleValue()
-          toggleVisibility(overlay)
+          removeConfirm()
           toggleTabbing(el)
           el.focus()
         }
       }
       const handleEscape = (event) => {
         
-        if (!isSpaceKey(event) && !isClick(event)) {
-          return
-        } else {
-        
+        if (isSpaceKey(event) || isClick(event)) {
+          
+          removeConfirm()
+          toggleTabbing(el)
+          el.focus()
         }
-        
-        toggleVisibility(overlay)
-        toggleTabbing(el)
-        el.focus()
       }
       const handleValueChange = (event) => {
         
-        if (!isSpaceKey(event) && !isClick(event)) {
-          return
-        } else if ((component.value.value && props.confirmOn === 'on') || (!component.value.value && props.confirmOn === 'off') || props.confirmOn === 'both') {
+        if ((isSpaceKey(event) || isClick(event)) && ((component.value.value && props.confirmOn === 'on') || (!component.value.value && props.confirmOn === 'off') || props.confirmOn === 'both')) {
           
-          toggleValue()
-          toggleVisibility(overlay)
-          toggleTabbing(el)
-          refs.value.toggleConfirmButton.focus()
+          confirm.value = createConfirm({ props, context })
+          
+          nextTick(() => {
+            
+            refs.value = { ...confirm.value.$refs.modal.$refs }
+            
+            attachListeners({ ...refs.value })
+            
+            toggleValue()
+            toggleTabbing(el)
+            refs.value.toggleConfirmButton.focus()
+          })
         }
       }
       
-      const createConfirm = ({ props, context }) => {
+      const createConfirm = ({ props }) => {
         
         const existing = confirmHtmlExists()
         
@@ -168,23 +151,15 @@ export default function vueformPluginToggleConfirm() {
         
         return app.mount('div[data-vf-toggle-confirm-overlay]')
       }
-
+      const removeConfirm = () => {
+        confirm.value.$el.parentNode.remove()
+      }
+      
       onMounted(() => {
         
         el = component.input.value.$el
-        confirm.value = createConfirm({ props, context })
         
-        nextTick(() => {
-          
-          overlay = confirm.value.$el.parentNode
-          refs.value = { ...confirm.value.$refs.modal.$refs }
-          
-          attachListeners({ el, ...refs.value })
-        })
-      })
-      
-      onBeforeUnmount(() => {
-        detachListeners({ el, ...refs.value })
+        attachListeners({ el })
       })
       
       return {
