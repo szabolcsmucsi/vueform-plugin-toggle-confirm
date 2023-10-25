@@ -1,16 +1,19 @@
 <template>
-  <div data-vf-toggle-confirm-wrapper>
+  <div
+      data-vf-toggle-confirm-wrapper
+      :class="classList?.wrapper"
+  >
     <div data-vf-toggle-confirm-text v-html="content"></div>
     <button
         data-vf-toggle-confirm-confirm
-        class="vf-btn vf-btn-primary"
+        :class="classList?.confirm"
         ref="confirmButton"
         @click.prevent="handleConfirmClick"
     >{{ confirmButtonLabel }}</button>
     
     <button
         data-vf-toggle-confirm-cancel
-        class="vf-btn vf-btn-secondary"
+        :class="classList?.cancel"
         @click.prevent="handleCancelClick"
     >{{ cancelButtonLabel }}</button>
     
@@ -32,6 +35,7 @@ const props = defineProps({
   content: {},
   confirmButtonLabel: {},
   cancelButtonLabel: {},
+  classList: {}
 })
 
 const confirmButton = ref(null)

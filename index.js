@@ -22,6 +22,14 @@ export default function vueformPluginToggleConfirm() {
         type: String,
         default: 'Cancel',
       },
+      classList: {
+        type: Object,
+        default: {
+          wrapper: '',
+          confirm: 'vf-btn vf-btn-primary',
+          cancel: 'vf-btn vf-btn-secondary',
+        }
+      }
     },
     setup(props, context, component) {
       if (!props.confirmText && !props.confirmTextOn && !props.confirmTextOff) {
@@ -36,6 +44,7 @@ export default function vueformPluginToggleConfirm() {
         confirmTextOff,
         confirmLabel,
         cancelLabel,
+        classList,
       } = toRefs(props)
       
       const events = ['click', 'keypress']
@@ -67,6 +76,7 @@ export default function vueformPluginToggleConfirm() {
               content: modalContent.value,
               confirmButtonLabel: confirmLabel.value,
               cancelButtonLabel: cancelLabel.value,
+              classList: classList.value,
               onConfirm: handleConfirm,
               onCancel: handleCancel,
               ref: 'modal$'
