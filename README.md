@@ -46,10 +46,11 @@ export default {
 
 ## Options
 
-| Name               | {Type} Default       | Description                                                                                                                    |
-|--------------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------|
-| **confirmTextOn**  | `{string} undefined` | The text in the modal when toggle is being set to true                                                                         |
-| **confirmTextOff** | `{string} undefined` | The text in the modal when toggle is being set to false                                                                        |
-| **confirmText**    | `{string} undefined` | The text in the modal when toggle is being set to true or false (mutually exclusive with `confirmTextOn` and `confirmTextOff`) |
-| **confirmLabel**   | `{string} Confirm`   | Text of the confirm button in the modal                                                                                        |
-| **cancelLabel**    | `{string} Cancel`    | Text of the cancel button in the modal                                                                                         |
+| Name               | {Type} Default       | Description                                                                                                                                                         |
+|--------------------|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **confirmTextOn**  | `{string} undefined` | The text in the modal when toggle is being set to true                                                                                                              |
+| **confirmTextOff** | `{string} undefined` | The text in the modal when toggle is being set to false                                                                                                             |
+| **confirmText**    | `{string} undefined` | The text in the modal when toggle is being set to true or false (mutually exclusive with `confirmTextOn` and `confirmTextOff`)                                      |
+| **confirmLabel**   | `{string} Confirm`   | Text of the confirm button in the modal                                                                                                                             |
+| **cancelLabel**    | `{string} Cancel`    | Text of the cancel button in the modal                                                                                                                              |
+| **classList**      | `{object} { wrapper: '', confirm: 'vf-btn vf-btn-primary', cancel: 'vf-btn vf-btn-secondary' }`    | Classes for `wrapper` will affect the modal wrapper<br/>Classes for `confirm` will affect the confirm button<br/>Classes for `cancel` will affect the cancel button |
