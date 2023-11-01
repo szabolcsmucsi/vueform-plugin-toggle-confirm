@@ -22,20 +22,10 @@ export default function vueformPluginToggleConfirm() {
         type: String,
         default: 'Cancel',
       },
-      classList: {
-        type: Object,
-        default: {
-          wrapper: '',
-          confirm: 'vf-btn vf-btn-primary',
-          cancel: 'vf-btn vf-btn-secondary',
-        }
-      }
     },
     setup(props, context, component) {
       if (!props.confirmText && !props.confirmTextOn && !props.confirmTextOff) {
-        return {
-          ...component
-        }
+        return component
       }
 
       const {
@@ -76,9 +66,13 @@ export default function vueformPluginToggleConfirm() {
               content: modalContent.value,
               confirmButtonLabel: confirmLabel.value,
               cancelButtonLabel: cancelLabel.value,
-              classList: classList.value,
               onConfirm: handleConfirm,
               onCancel: handleCancel,
+              el$: component.el$,
+              form$: component.form$,
+              theme: component.theme,
+              Templates: component.Templates,
+              View: component.View,
               ref: 'modal$'
             })
           }
@@ -87,7 +81,7 @@ export default function vueformPluginToggleConfirm() {
         const overlay = document.createElement('div')
 
         overlay.setAttribute('data-vf-toggle-confirm-modal', '')
-        overlay.setAttribute('class', 'vf-toggle-confirm-overlay')
+        overlay.setAttribute('class', 'vf-toggle-confirm-modal-overlay')
         
         document.body.append(overlay)
         
