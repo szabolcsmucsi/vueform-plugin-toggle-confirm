@@ -11,6 +11,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@vueform/vueform": "^1.5.4"
+    "@vueform/vueform": "^1.5.4",
+    "vue": "^3.3.4"
   }
 }
