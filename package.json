@@ -9,5 +9,8 @@
       "email": "mrw@vueform.com"
     }
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "@vueform/vueform": "^1.5.4"
+  }
 }
