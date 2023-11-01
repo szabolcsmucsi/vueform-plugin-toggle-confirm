@@ -1,4 +1,5 @@
 import { createApp, h, ref, nextTick, onMounted, computed, onBeforeUnmount, toRefs } from 'vue'
+import { useClasses } from '@vueform/vueform'
 import ConfirmModal from './ConfirmModal.vue'
 
 export default function vueformPluginToggleConfirm() {
@@ -74,6 +75,26 @@ export default function vueformPluginToggleConfirm() {
           confirmTitle.value
       })
 
+      const { classes } = useClasses(props, { name: ref('ConfirmModal') }, {
+        form$: component.form$,
+        el$: component.el$,
+        theme: component.theme,
+        Templates: component.Templates,
+        View: component.View,
+        component$: ref({
+          merge: true,
+          defaultClasses: {
+            overlay: 'vf-toggle-confirm-modal-overlay',
+            wrapper: 'vf-toggle-confirm-modal-wrapper',
+            title: 'vf-toggle-confirm-modal-title',
+            content: 'vf-toggle-confirm-modal-content',
+            confirm: 'vf-toggle-confirm-modal-btn is-primary vf-toggle-confirm-modal-confirm',
+            cancel: 'vf-toggle-confirm-modal-btn is-secondary vf-toggle-confirm-modal-cancel',
+            close: 'vf-toggle-confirm-modal-close',
+          }
+        }),
+      })
+
       // =============== METHODS ==============
       
       const createModal = () => {
@@ -86,11 +107,7 @@ export default function vueformPluginToggleConfirm() {
               cancelButtonLabel: cancelLabel.value,
               onConfirm: handleConfirm,
               onCancel: handleCancel,
-              el$: component.el$,
-              form$: component.form$,
-              theme: component.theme,
-              Templates: component.Templates,
-              View: component.View,
+              classes: classes.value,
               ref: 'modal$'
             })
           }
@@ -99,7 +116,7 @@ export default function vueformPluginToggleConfirm() {
         const overlay = document.createElement('div')
 
         overlay.setAttribute('data-vf-toggle-confirm-modal', '')
-        overlay.setAttribute('class', 'vf-toggle-confirm-modal-overlay')
+        overlay.setAttribute('class', classes.value.overlay.join(' '))
         
         document.body.append(overlay)
         

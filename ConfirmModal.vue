@@ -22,7 +22,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useClasses } from '@vueform/vueform'
 
 const emits = defineEmits([
   'confirm', 'cancel',
@@ -41,36 +40,9 @@ const props = defineProps({
   cancelButtonLabel: {
     type: String,
   },
-  form$: {
+  classes: {
     type: Object,
   },
-  el$: {
-    type: Object,
-  },
-  theme: {
-    type: Object,
-  },
-  Templates: {
-    type: Object,
-  },
-  View: {
-    type: String,
-  },
-})
-
-const { classes } = useClasses(props, { name: ref('ConfirmModal') }, {
-  ...props,
-  component$: ref({
-    merge: true,
-    defaultClasses: {
-      wrapper: 'vf-toggle-confirm-modal-wrapper',
-      title: 'vf-toggle-confirm-modal-title',
-      content: 'vf-toggle-confirm-modal-content',
-      confirm: 'vf-toggle-confirm-modal-btn is-primary vf-toggle-confirm-modal-confirm',
-      cancel: 'vf-toggle-confirm-modal-btn is-secondary vf-toggle-confirm-modal-cancel',
-      close: 'vf-toggle-confirm-modal-close',
-    }
-  }),
 })
 
 const confirmButton = ref(null)
