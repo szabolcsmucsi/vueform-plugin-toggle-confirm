@@ -81,7 +81,7 @@ const handleCloseClick = () => {
 
 .vf-toggle-confirm-modal-wrapper {
   position: relative;
-  margin: 1rem;
+  margin: var(--vf-toggle-confirm-modal-wrapper-mx, 1rem);
   min-width: var(--vf-toggle-confirm-modal-min-width, 380px);
   max-width: var(--vf-toggle-confirm-modal-max-width, 512px);
   min-height: var(--vf-toggle-confirm-modal-min-height, 120px);
