@@ -1,6 +1,7 @@
 <template>
   <div :class="classes.wrapper">
-    <div :class="classes.text" v-html="content"></div>
+    <div v-if="title" :class="classes.title" v-html="title"></div>
+    <div :class="classes.content" v-html="content"></div>
     <button
       :class="classes.confirm"
       @click.prevent="handleConfirmClick"
@@ -28,14 +29,33 @@ const emits = defineEmits([
 ])
 
 const props = defineProps({
-  content: {},
-  confirmButtonLabel: {},
-  cancelButtonLabel: {},
-  form$: {},
-  el$: {},
-  theme: {},
-  Templates: {},
-  View: {},
+  title: {
+    type: String,
+  },
+  content: {
+    type: String,
+  },
+  confirmButtonLabel: {
+    type: String,
+  },
+  cancelButtonLabel: {
+    type: String,
+  },
+  form$: {
+    type: Object,
+  },
+  el$: {
+    type: Object,
+  },
+  theme: {
+    type: Object,
+  },
+  Templates: {
+    type: Object,
+  },
+  View: {
+    type: String,
+  },
 })
 
 const { classes } = useClasses(props, { name: ref('ConfirmModal') }, {
@@ -44,7 +64,8 @@ const { classes } = useClasses(props, { name: ref('ConfirmModal') }, {
     merge: true,
     defaultClasses: {
       wrapper: 'vf-toggle-confirm-modal-wrapper',
-      text: 'vf-toggle-confirm-modal-text',
+      title: 'vf-toggle-confirm-modal-title',
+      content: 'vf-toggle-confirm-modal-content',
       confirm: 'vf-toggle-confirm-modal-btn is-primary vf-toggle-confirm-modal-confirm',
       cancel: 'vf-toggle-confirm-modal-btn is-secondary vf-toggle-confirm-modal-cancel',
       close: 'vf-toggle-confirm-modal-close',
@@ -91,7 +112,10 @@ const handleCloseClick = () => {
   padding: 1rem;
 }
 
-.vf-toggle-confirm-modal-text {
+.vf-toggle-confirm-modal-label {
+}
+
+.vf-toggle-confirm-modal-content {
 }
 
 .vf-toggle-confirm-modal-confirm {

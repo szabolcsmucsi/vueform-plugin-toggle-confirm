@@ -14,6 +14,15 @@ export default function vueformPluginToggleConfirm() {
       confirmTextOff: {
         type: String,
       },
+      confirmTitle: {
+        type: String,
+      },
+      confirmTitleOn: {
+        type: String,
+      },
+      confirmTitleOff: {
+        type: String,
+      },
       confirmLabel: {
         type: String,
         default: 'Confirm',
@@ -32,9 +41,11 @@ export default function vueformPluginToggleConfirm() {
         confirmText,
         confirmTextOn,
         confirmTextOff,
+        confirmTitle,
+        confirmTitleOn,
+        confirmTitleOff,
         confirmLabel,
         cancelLabel,
-        classList,
       } = toRefs(props)
       
       const events = ['click', 'keypress']
@@ -52,9 +63,15 @@ export default function vueformPluginToggleConfirm() {
       })
       
       const modalContent = computed(() => {
-        return confirmTextOn.value ??
-          confirmTextOff.value ??
+        return confirmTextOn.value ||
+          confirmTextOff.value ||
           confirmText.value
+      })
+      
+      const modalTitle = computed(() => {
+        return confirmTitleOn.value ||
+          confirmTitleOff.value ||
+          confirmTitle.value
       })
 
       // =============== METHODS ==============
@@ -64,6 +81,7 @@ export default function vueformPluginToggleConfirm() {
           render() {
             return h(ConfirmModal, {
               content: modalContent.value,
+              title: modalTitle.value,
               confirmButtonLabel: confirmLabel.value,
               cancelButtonLabel: cancelLabel.value,
               onConfirm: handleConfirm,
