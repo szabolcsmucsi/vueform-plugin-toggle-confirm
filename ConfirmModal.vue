@@ -1,22 +1,26 @@
 <template>
-  <div :class="classes.wrapper">
-    <div v-if="title" :class="classes.title" v-html="title"></div>
-    <div :class="classes.content" v-html="content"></div>
-    <button
-      :class="classes.confirm"
-      @click.prevent="handleConfirmClick"
-      ref="confirmButton"
-    >{{ confirmButtonLabel }}</button>
-    
-    <button
-      :class="classes.cancel"
-      @click.prevent="handleCancelClick"
-    >{{ cancelButtonLabel }}</button>
-    
+  <div :class="classes.wrapper" @mousedown.stop>
     <button
       :class="classes.close"
       @click.prevent="handleCloseClick"
     />
+    
+    <div v-if="title" :class="classes.title" v-html="title"></div>
+
+    <div :class="classes.content" v-html="content"></div>
+
+    <div :class="classes.buttonsWrapper">
+      <button
+        :class="classes.confirm"
+        @click.prevent="handleConfirmClick"
+        ref="confirmButton"
+      >{{ confirmButtonLabel }}</button>
+      
+      <button
+        :class="classes.cancel"
+        @click.prevent="handleCancelClick"
+      >{{ cancelButtonLabel }}</button>
+    </div>
   </div>
 </template>
 
@@ -61,13 +65,18 @@ const handleCloseClick = () => {
 </script>
 
 <style lang="scss">
+*, :root, :before, :after {
+  --vf-toggle-confirm-modal-px: 1.5rem;
+  --vf-toggle-confirm-modal-py: 1.5rem;
+}
+
 .vf-toggle-confirm-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgb(107 114 128 / .75);
   z-index: 999;
 }
 
@@ -78,22 +87,33 @@ const handleCloseClick = () => {
   transform: translate(-50%, -50%);
   min-width: 380px;
   min-height: 120px;
-  max-width: 600px;
+  max-width: 512px;
   width: 100%;
   background: #FFFFFF;
-  padding: 1rem;
+  padding: var(--vf-toggle-confirm-modal-py) var(--vf-toggle-confirm-modal-px);
+  box-shadow: 0 20px 25px -5px #0000001a, 0 8px 10px -6px #0000001a;
 }
 
-.vf-toggle-confirm-modal-label {
+.vf-toggle-confirm-modal-title {
+  font-size: 24px;
+  line-height: 1.2;
+  padding-bottom: var(--vf-toggle-confirm-modal-py);
+  font-weight: 500;
 }
 
 .vf-toggle-confirm-modal-content {
 }
 
+.vf-toggle-confirm-modal-buttons-wrapper {
+  padding-top: var(--vf-toggle-confirm-modal-py);
+  display: flex;
+  gap: 0.75rem;
+}
+
 .vf-toggle-confirm-modal-confirm {
-  margin-top: 1rem;
-  margin-right: 1rem;
-  position: relative;
+}
+
+.vf-toggle-confirm-modal-cancel {
 }
 
 .vf-toggle-confirm-modal-btn {
@@ -143,31 +163,20 @@ const handleCloseClick = () => {
 
 .vf-toggle-confirm-modal-close {
   position: absolute;
-  top: 1.6rem;
-  right: 1rem;
-  width: 2rem;
-  height: 2rem;
+  top: var(--vf-toggle-confirm-modal-py);
+  right: var(--vf-toggle-confirm-modal-px);
   cursor: pointer;
-  background: none;
-  border: none;
+  mask-repeat: no-repeat;
+  mask-position: center center;
+  mask-size: contain;
+  mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><path d="M193.94 256L296.5 153.44l21.15-21.15c3.12-3.12 3.12-8.19 0-11.31l-22.63-22.63c-3.12-3.12-8.19-3.12-11.31 0L160 222.06 36.29 98.34c-3.12-3.12-8.19-3.12-11.31 0L2.34 120.97c-3.12 3.12-3.12 8.19 0 11.31L126.06 256 2.34 379.71c-3.12 3.12-3.12 8.19 0 11.31l22.63 22.63c3.12 3.12 8.19 3.12 11.31 0L160 289.94 262.56 392.5l21.15 21.15c3.12 3.12 8.19 3.12 11.31 0l22.63-22.63c3.12-3.12 3.12-8.19 0-11.31L193.94 256z"/></svg>');
+  background-color: var(--vf-gray-400);
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-.vf-toggle-confirm-modal-close:before,
-.vf-toggle-confirm-modal-close:after {
-  content: '';
-  position: absolute;
-  left: 0.95rem;
-  top: 0;
-  background: #000000;
-  width: 2px;
-  height: 2rem;
-}
-
-.vf-toggle-confirm-modal-close:before {
-  transform: rotate(45deg);
-}
-
-.vf-toggle-confirm-modal-close:after {
-  transform: rotate(-45deg);
+.vf-toggle-confirm-modal-close:hover {
+  background-color: var(--vf-gray-500);
+  transition: background-color .3s;
 }
 </style>

@@ -88,6 +88,7 @@ export default function vueformPluginToggleConfirm() {
             wrapper: 'vf-toggle-confirm-modal-wrapper',
             title: 'vf-toggle-confirm-modal-title',
             content: 'vf-toggle-confirm-modal-content',
+            buttonsWrapper: 'vf-toggle-confirm-modal-buttons-wrapper',
             confirm: 'vf-toggle-confirm-modal-btn is-primary vf-toggle-confirm-modal-confirm',
             cancel: 'vf-toggle-confirm-modal-btn is-secondary vf-toggle-confirm-modal-cancel',
             close: 'vf-toggle-confirm-modal-close',
@@ -118,7 +119,7 @@ export default function vueformPluginToggleConfirm() {
         overlay.setAttribute('data-vf-toggle-confirm-modal', '')
         overlay.setAttribute('class', classes.value.overlay.join(' '))
 
-        overlay.addEventListener('click', removeModal)
+        overlay.addEventListener('mousedown', removeModal)
         
         document.body.append(overlay)
         
