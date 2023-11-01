@@ -81,7 +81,7 @@ const handleCloseClick = () => {
 
 .vf-toggle-confirm-modal-wrapper {
   position: relative;
-  margin: var(--vf-toggle-confirm-modal-wrapper-mx, 1rem);
+  margin: var(--vf-toggle-confirm-modal-mx, 1rem);
   min-width: var(--vf-toggle-confirm-modal-min-width, 380px);
   max-width: var(--vf-toggle-confirm-modal-max-width, 512px);
   min-height: var(--vf-toggle-confirm-modal-min-height, 120px);
@@ -89,6 +89,7 @@ const handleCloseClick = () => {
   background: var(--vf-toggle-confirm-modal-bg, #FFFFFF);
   padding: var(--vf-toggle-confirm-modal-py, 1.5rem) var(--vf-toggle-confirm-modal-px, 1.5rem);
   box-shadow: var(--vf-toggle-confirm-modal-shadow, 0 20px 25px -5px #0000001a, 0 8px 10px -6px #0000001a);
+  border-radius: var(--vf-toggle-confirm-modal-radius, 0px);
 }
 
 .vf-toggle-confirm-modal-title {
@@ -176,7 +177,7 @@ const handleCloseClick = () => {
 }
 
 .vf-toggle-confirm-modal-close:hover {
-  background-color: var(--vf-toggle-confirm-modal-, var(--vf-gray-500));
+  background-color: var(--vf-toggle-confirm-modal-close-color-hover, var(--vf-gray-500));
   transition: background-color .3s;
 }
 </style>
