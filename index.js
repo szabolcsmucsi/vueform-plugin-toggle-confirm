@@ -117,6 +117,8 @@ export default function vueformPluginToggleConfirm() {
 
         overlay.setAttribute('data-vf-toggle-confirm-modal', '')
         overlay.setAttribute('class', classes.value.overlay.join(' '))
+
+        overlay.addEventListener('click', removeModal)
         
         document.body.append(overlay)
         
