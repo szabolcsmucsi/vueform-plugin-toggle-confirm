@@ -9,19 +9,19 @@ export default function vueformPluginToggleConfirm() {
       confirmText: {
         type: String,
       },
-      confirmTextOn: {
+      confirmOnText: {
         type: String,
       },
-      confirmTextOff: {
+      confirmOffText: {
         type: String,
       },
       confirmTitle: {
         type: String,
       },
-      confirmTitleOn: {
+      confirmOnTitle: {
         type: String,
       },
-      confirmTitleOff: {
+      confirmOffTitle: {
         type: String,
       },
       confirmLabel: {
@@ -34,17 +34,17 @@ export default function vueformPluginToggleConfirm() {
       },
     },
     setup(props, context, component) {
-      if (!props.confirmText && !props.confirmTextOn && !props.confirmTextOff) {
+      if (!props.confirmText && !props.confirmOnText && !props.confirmOffText) {
         return component
       }
 
       const {
         confirmText,
-        confirmTextOn,
-        confirmTextOff,
+        confirmOnText,
+        confirmOffText,
         confirmTitle,
-        confirmTitleOn,
-        confirmTitleOff,
+        confirmOnTitle,
+        confirmOffTitle,
         confirmLabel,
         cancelLabel,
       } = toRefs(props)
@@ -64,14 +64,14 @@ export default function vueformPluginToggleConfirm() {
       })
       
       const modalContent = computed(() => {
-        return confirmTextOn.value ||
-          confirmTextOff.value ||
+        return confirmOnText.value ||
+          confirmOffText.value ||
           confirmText.value
       })
       
       const modalTitle = computed(() => {
-        return confirmTitleOn.value ||
-          confirmTitleOff.value ||
+        return confirmOnTitle.value ||
+          confirmOffTitle.value ||
           confirmTitle.value
       })
 
@@ -151,8 +151,8 @@ export default function vueformPluginToggleConfirm() {
       const handleValueChange = (event) => {
         if (
           ((event.type !== 'keydown' || event.key !== ' ') && (event.type !== 'click' || event.button !== 0)) ||
-          (component.value.value && confirmTextOff.value) ||
-          (!component.value.value && confirmTextOn.value) ||
+          (component.value.value && confirmOffText.value) ||
+          (!component.value.value && confirmOnText.value) ||
           !confirmText)
         {
           return
