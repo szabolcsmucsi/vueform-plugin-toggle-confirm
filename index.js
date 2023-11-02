@@ -49,8 +49,6 @@ export default function vueformPluginToggleConfirm() {
         cancelLabel,
       } = toRefs(props)
       
-      const events = ['click', 'keypress']
-
       let ModalApp
 
       // ================ DATA ================
@@ -132,13 +130,28 @@ export default function vueformPluginToggleConfirm() {
         ModalApp.unmount()
         document.querySelector('[data-vf-toggle-confirm-modal]').remove()
       }
-      
-      const toggleValue = () => {
+
+      const toggle = () => {
         component.value.value = !component.value.value
+      }
+      
+      const handleChange = (value) => {
+        if ((value && !confirmOnText.value && !confirmText.value) || 
+          (!value && !confirmOffText.value && !confirmText.value))
+        {
+          toggle()
+          return
+        }
+
+        let modal$ = createModal()
+
+        nextTick(() => {
+          modal$.$refs.confirmButton.focus()
+        })
       }
 
       const handleConfirm = () => {
-        toggleValue()
+        toggle()
         removeModal()
         $el.value.focus()
       }
@@ -147,39 +160,11 @@ export default function vueformPluginToggleConfirm() {
         removeModal()
         $el.value.focus()
       }
-
-      const handleValueChange = (event) => {
-        if (
-          ((event.type !== 'keydown' || event.key !== ' ') && (event.type !== 'click' || event.button !== 0)) ||
-          (component.value.value && confirmOffText.value) ||
-          (!component.value.value && confirmOnText.value) ||
-          !confirmText)
-        {
-          return
-        }
-
-        let modal$ = createModal()
-
-        nextTick(() => {
-          toggleValue()
-          modal$.$refs.confirmButton.focus()
-        })
-      }
-      
-      onMounted(() => {
-        events.map((event) => {
-          $el.value.addEventListener(event, handleValueChange)
-        })
-      })
-
-      onBeforeUnmount(() => {
-        events.map((event) => {
-          $el.value.removeEventListener(event, handleValueChange)
-        })
-      })
       
       return {
         ...component,
+        handleChange,
+        toggle,
       }
     },
   }
