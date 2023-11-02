@@ -80,14 +80,18 @@ You can customize the following CSS vars dedicated for this plugin:
   --vf-toggle-confirm-modal-shadow: 0 20px 25px -5px #0000001a, 0 8px 10px -6px #0000001a;
 
   /* Title */
+  --vf-toggle-confirm-modal-title-color: inherit;
   --vf-toggle-confirm-modal-title-font-size: 24px;
   --vf-toggle-confirm-modal-title-line-height: 1.2;
   --vf-toggle-confirm-modal-title-font-weight: 500;
-  --vf-toggle-confirm-modal-title-pb: 1.5rem;
+  --vf-toggle-confirm-modal-title-pb: 0.75rem;
+  --vf-toggle-confirm-modal-title-mb: 0.75rem;
+  --vf-toggle-confirm-modal-title-border-width: 0px;
+  --vf-toggle-confirm-modal-title-border-color: var(--vf-gray-300);
 
   /* Content */
-  --vf-toggle-confirm-modal-font-size: 1rem;
   --vf-toggle-confirm-modal-color: inherit;
+  --vf-toggle-confirm-modal-font-size: 1rem;
 
   /* Buttons */
   --vf-toggle-confirm-modal-buttons-pt: 1.5rem;
