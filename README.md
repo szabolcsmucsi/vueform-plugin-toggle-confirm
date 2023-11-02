@@ -48,15 +48,32 @@ export default {
 ## Options
 
 | Name | {Type} Default | Description |
-| ---| --- | --- |
-| **confirmText** | `{string} undefined` | The text in the modal when toggle is being set to **On** or **Off** (mutually exclusive with `confirmTextOn` and `confirmTextOff`). |
-| **confirmTextOn** | `{string} undefined` | The text in the modal when toggle is being set to **On**. |
-| **confirmTextOff** | `{string} undefined` | The text in the modal when toggle is being set to **Off**. |
-| **confirmTitle** | `{string} undefined` | The title in the modal when toggle is being set to **On** or **Off** (mutually exclusive with `confirmTitleOn` and `confirmTitleOff`). |
-| **confirmTitleOn** | `{string} undefined` | The title in the modal when toggle is being set to **On**. |
-| **confirmTitleOff** | `{string} undefined` | The title in the modal when toggle is being set to **Off**. |
+| --- | --- | --- |
+| **confirmText** | `{string} undefined` | The text in the modal when toggle is being set to **On** or **Off** (mutually exclusive with `confirmOnText` and `confirmOffText`). |
+| **confirmOnText** | `{string} undefined` | The text in the modal when toggle is being set to **On**. |
+| **confirmOffText** | `{string} undefined` | The text in the modal when toggle is being set to **Off**. |
+| **confirmTitle** | `{string} undefined` | The title in the modal when toggle is being set to **On** or **Off** (mutually exclusive with `confirmOnTitle` and `confirmOffTitle`). |
+| **confirmOnTitle** | `{string} undefined` | The title in the modal when toggle is being set to **On**. |
+| **confirmOffTitle** | `{string} undefined` | The title in the modal when toggle is being set to **Off**. |
 | **confirmLabel** | `{string} Confirm` | Text of the confirm button in the modal. |
 | **cancelLabel** | `{string} Cancel` | Text of the cancel button in the modal. |
+
+## Classes
+
+Classes can be changed using the built-in Vueform [class management](https://vueform.com/docs/styles-and-layout#add-classes) with `ConfirmModal` key, eg.:
+
+```vue
+<ToggleElement
+  ...
+  :replace-classes="{
+    ConfirmModal: {
+      'vf-toggle-confirm-modal-overlay' : 'my-overlay-class',
+      'vf-toggle-confirm-modal-wrapper' : 'my-wrapper-class',
+      // ...
+    }
+  }"
+/>
+```
 
 ## CSS Vars
 
