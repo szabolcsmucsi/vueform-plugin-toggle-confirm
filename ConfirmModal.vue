@@ -96,8 +96,11 @@ const handleCloseClick = () => {
   font-size: var(--vf-toggle-confirm-modal-title-font-size, 24px);
   line-height: var(--vf-toggle-confirm-modal-title-line-height, 1.2);
   font-weight: var(--vf-toggle-confirm-modal-title-font-weight, 500);
-  padding-bottom: var(--vf-toggle-confirm-modal-title-pb, 1.5rem);
-  margin-right: var(--vf-toggle-confirm-modal-close-width, 1.5rem);
+  color: var(--vf-toggle-confirm-modal-title-color, inherit);
+  margin-bottom: var(--vf-toggle-confirm-modal-title-mb, 0.75rem);
+  padding-bottom: var(--vf-toggle-confirm-modal-title-pb, 0.75rem);
+  padding-right: var(--vf-toggle-confirm-modal-close-width, 1.5rem);
+  border-bottom: var(--vf-toggle-confirm-modal-title-border-width, 1px) solid var(--vf-toggle-confirm-modal-title-border-color, var(--vf-gray-300));
 }
 
 .vf-toggle-confirm-modal-content {
