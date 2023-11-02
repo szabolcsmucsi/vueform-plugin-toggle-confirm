@@ -1,6 +1,8 @@
-# Toggle Confirm Vueform Plugin
+# Toggle Confirm plugin for [Vueform](https://github.com/vueform/vueform)
 
-Plugin for Vueform to add a confirm dialog to `ToggleElement` upon toggling.
+Plugin for [Vueform](https://github.com/vueform/vueform) to add a confirm dialog to `ToggleElement` upon toggling.
+
+[![Toggle Confirm Vueform Plugin preview](https://raw.githubusercontent.com/szabolcsmucsi/vueform-plugin-toggle-confirm/main/preview.png)](https://builder.vueform.com?cid=builder)
 
 ## Prerequisites
 
