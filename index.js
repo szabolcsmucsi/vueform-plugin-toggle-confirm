@@ -144,7 +144,8 @@ export default function vueformPluginToggleConfirm() {
       }
       
       const handleChange = (value) => {
-        if ((value && !confirmOnText.value && !confirmText.value) || 
+        if (
+          (value && !confirmOnText.value && !confirmText.value) ||
           (!value && !confirmOffText.value && !confirmText.value))
         {
           toggle()
