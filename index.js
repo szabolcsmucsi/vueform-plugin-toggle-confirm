@@ -62,10 +62,11 @@ export default function vueformPluginToggleConfirm() {
       })
       
       const modalContent = computed(() => {
-        if (component.value.value && confirmOnText.value && !confirmText.value) {
+        if (!component.value.value && confirmOnText.value && !confirmText.value) {
           return confirmOnText.value
         }
-        if (!component.value.value && confirmOffText.value && !confirmText.value) {
+
+        if (component.value.value && confirmOffText.value && !confirmText.value) {
           return confirmOffText.value
         }
         
@@ -73,10 +74,11 @@ export default function vueformPluginToggleConfirm() {
       })
       
       const modalTitle = computed(() => {
-        if (component.value.value && confirmOnTitle.value && !confirmTitle.value) {
+        if (!component.value.value && confirmOnTitle.value && !confirmTitle.value) {
           return confirmOnTitle.value
         }
-        if (!component.value.value && confirmOffTitle.value && !confirmTitle.value) {
+        
+        if (component.value.value && confirmOffTitle.value && !confirmTitle.value) {
           return confirmOffTitle.value
         }
         
