@@ -62,15 +62,23 @@ export default function vueformPluginToggleConfirm() {
       })
       
       const modalContent = computed(() => {
-        return confirmOnText.value ||
-          confirmOffText.value ||
-          confirmText.value
+        if (!confirmOffText.value && !confirmOnText.value) {
+          return confirmText.value
+        } else if (component.value.value && confirmOffText.value) {
+          return confirmOffText.value
+        } else {
+          return confirmOnText.value
+        }
       })
       
       const modalTitle = computed(() => {
-        return confirmOnTitle.value ||
-          confirmOffTitle.value ||
-          confirmTitle.value
+        if (!confirmOffTitle.value && !confirmOnTitle.value) {
+          return confirmTitle.value
+        } else if (component.value.value && confirmOffTitle.value) {
+          return confirmOffTitle.value
+        } else {
+          return confirmOnTitle.value
+        }
       })
 
       const { classes } = useClasses(props, { name: ref('ConfirmModal') }, {
