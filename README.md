@@ -39,8 +39,8 @@ export default {
   <Vueform>
     <ToggleElement
       name="toggle"
-      confirm-text-on="You are about to enable this option! Do you want to continue?"
-      confirm-text-off="Are you sure you want to disable this option?"
+      confirm-on-text="You are about to enable this option! Do you want to continue?"
+      confirm-off-text="Are you sure you want to disable this option?"
       confirm-title="Confirmation"
     />
   </Vueform>
